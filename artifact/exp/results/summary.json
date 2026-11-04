@@ -1,0 +1,359 @@
+{
+  "generated_from": [
+    "E0_env.json",
+    "E1_header_matrix.json",
+    "E2_toolchain_matrix.json",
+    "E3_safety_matrix.json",
+    "E4_runtime_no_driver.json",
+    "E5_build_cost.json",
+    "S1_static_upstream.json",
+    "T1_bench_no_device.json",
+    "T1_kat.json",
+    "T1_thox_tile_ops.json"
+  ],
+  "env": {
+    "cpus": 2,
+    "mem_gib": 7.8,
+    "machine": "x86_64",
+    "gpu_present": false,
+    "toolchains": {
+      "1.89.0": "rustc 1.89.0 (29483883e 2025-08-04)",
+      "1.97.0": "rustc 1.97.0 (2d8144b78 2026-07-07)",
+      "1.99.1": "rustc 1.99.1 (58cf8f9c3 2026-10-13)"
+    },
+    "cuda_tools": {
+      "12.8": "Build cuda_12.8.r12.8/compiler.35583870_0",
+      "13.3": "Build cuda_13.3.r13.3/compiler.38244171_0",
+      "13.4": "Build cuda_13.4.r13.4/compiler.38855100_0"
+    },
+    "cuda_rust_commit": "2ffc19b",
+    "cuda_rust_commit_date": "2026-11-03",
+    "cutile": "0.4.0"
+  },
+  "headers": [
+    {
+      "cuda": "none",
+      "ok": false,
+      "seconds": 20.8,
+      "reason": "no toolkit found"
+    },
+    {
+      "cuda": "12.8",
+      "ok": false,
+      "seconds": 21.1,
+      "reason": "toolkit too old (13.0+ required)"
+    },
+    {
+      "cuda": "13.3-no-curand",
+      "ok": false,
+      "seconds": 21.7,
+      "reason": "cuRAND headers missing"
+    },
+    {
+      "cuda": "13.3",
+      "ok": true,
+      "seconds": 65.4,
+      "reason": "builds"
+    },
+    {
+      "cuda": "13.4",
+      "ok": true,
+      "seconds": 64.6,
+      "reason": "builds"
+    }
+  ],
+  "toolchains": [
+    {
+      "rust": "1.89.0",
+      "ok": true,
+      "seconds": 74.0
+    },
+    {
+      "rust": "1.97.0",
+      "ok": true,
+      "seconds": 66.9
+    },
+    {
+      "rust": "1.99.1",
+      "ok": true,
+      "seconds": 67.4
+    }
+  ],
+  "safety": {
+    "reps": 3,
+    "cases": [
+      {
+        "binary": "p1_control",
+        "kind": "positive",
+        "expected": "compiles",
+        "observed": [
+          "compiles"
+        ],
+        "verdict": "pass",
+        "deterministic": true,
+        "description": "Correct launch: partitioned output, two lazy inputs",
+        "first_error": null,
+        "check_s": {
+          "n": 3,
+          "median": 0.15,
+          "q1": 0.15,
+          "q3": 0.15,
+          "min": 0.15,
+          "max": 0.15
+        }
+      },
+      {
+        "binary": "p3_shared_borrowed_input",
+        "kind": "positive",
+        "expected": "compiles",
+        "observed": [
+          "compiles"
+        ],
+        "verdict": "pass",
+        "deterministic": true,
+        "description": "One materialized input borrowed for both shared parameters",
+        "first_error": null,
+        "check_s": {
+          "n": 3,
+          "median": 0.16,
+          "q1": 0.15,
+          "q3": 0.16,
+          "min": 0.14,
+          "max": 0.17
+        }
+      },
+      {
+        "binary": "n1_alias_output_as_input",
+        "kind": "negative",
+        "expected": "E0382",
+        "observed": [
+          "E0382"
+        ],
+        "verdict": "pass",
+        "deterministic": true,
+        "description": "Output tensor also passed as an input (blog case)",
+        "first_error": "error[E0382]: use of moved value: `z`",
+        "check_s": {
+          "n": 3,
+          "median": 0.19,
+          "q1": 0.18,
+          "q3": 0.21,
+          "min": 0.18,
+          "max": 0.24
+        }
+      },
+      {
+        "binary": "n2_unpartitioned_output",
+        "kind": "negative",
+        "expected": "E0277",
+        "observed": [
+          "E0277"
+        ],
+        "verdict": "pass",
+        "deterministic": true,
+        "description": "Mutable output passed without a partition",
+        "first_error": "error[E0277]: the trait bound `cutile::prelude::Tensor<f32>: KernelOutput<f32>` is not satisfied",
+        "check_s": {
+          "n": 3,
+          "median": 0.2,
+          "q1": 0.19,
+          "q3": 0.2,
+          "min": 0.18,
+          "max": 0.2
+        }
+      },
+      {
+        "binary": "n3_use_after_launch",
+        "kind": "negative",
+        "expected": "E0382",
+        "observed": [
+          "E0382"
+        ],
+        "verdict": "pass",
+        "deterministic": true,
+        "description": "Host touches the output while the launch owns it",
+        "first_error": "error[E0382]: use of moved value: `z`",
+        "check_s": {
+          "n": 3,
+          "median": 0.22,
+          "q1": 0.21,
+          "q3": 0.23,
+          "min": 0.21,
+          "max": 0.24
+        }
+      },
+      {
+        "binary": "n4_borrowed_input_aliases_output",
+        "kind": "negative",
+        "expected": "E0382",
+        "observed": [
+          "E0382"
+        ],
+        "verdict": "pass",
+        "deterministic": true,
+        "description": "Output partitioned while a borrow of it is an input",
+        "first_error": "error[E0382]: borrow of moved value: `t`",
+        "check_s": {
+          "n": 3,
+          "median": 0.22,
+          "q1": 0.22,
+          "q3": 0.23,
+          "min": 0.21,
+          "max": 0.23
+        }
+      },
+      {
+        "binary": "p2_shared_input_twice",
+        "kind": "usability",
+        "expected": "compiles",
+        "observed": [
+          "E0382"
+        ],
+        "verdict": "observed",
+        "deterministic": true,
+        "description": "Same lazy input passed twice by value (reported, not a safety case)",
+        "first_error": "error[E0382]: use of moved value: `x`",
+        "check_s": {
+          "n": 3,
+          "median": 0.19,
+          "q1": 0.18,
+          "q3": 0.19,
+          "min": 0.18,
+          "max": 0.19
+        }
+      }
+    ],
+    "negatives_rejected": 4,
+    "negatives_total": 4,
+    "positives_compiled": 2,
+    "positives_total": 2,
+    "all_deterministic": true,
+    "usability_cases": [
+      "p2_shared_input_twice"
+    ]
+  },
+  "runtime_no_driver": {
+    "runs": 3,
+    "all_exit_1": true,
+    "driver_error_codes": [
+      3
+    ],
+    "any_panic": false,
+    "links_libcuda_at_load_time": false,
+    "binary_mib": 12.2,
+    "probes_wsl2_shim": true,
+    "elapsed_ms": {
+      "n": 3,
+      "median": 3.0,
+      "q1": 3.0,
+      "q3": 3.0,
+      "min": 3.0,
+      "max": 3.0
+    }
+  },
+  "build_cost": {
+    "cpus": 2,
+    "cold_release_s": {
+      "n": 3,
+      "median": 158.26,
+      "q1": 156.03,
+      "q3": 159.82,
+      "min": 153.81,
+      "max": 161.38
+    },
+    "incremental_check_s": {
+      "n": 10,
+      "median": 0.21,
+      "q1": 0.19,
+      "q3": 0.22,
+      "min": 0.19,
+      "max": 0.22
+    },
+    "incremental_release_s": {
+      "n": 5,
+      "median": 0.74,
+      "q1": 0.72,
+      "q3": 0.74,
+      "min": 0.7,
+      "max": 0.75
+    },
+    "all_succeeded": true
+  },
+  "upstream_static": {
+    "cuda-oxide (SIMT)": {
+      "rust_files": 1737,
+      "rust_code_lines": 840898,
+      "unsafe_tokens": 7189,
+      "unsafe_per_kloc": 8.55,
+      "files_with_tests": 773,
+      "cargo_manifests": 323,
+      "examples": 269,
+      "markdown_pages": 286
+    },
+    "cutile-rs (Tile)": {
+      "rust_files": 301,
+      "rust_code_lines": 109582,
+      "unsafe_tokens": 772,
+      "unsafe_per_kloc": 7.04,
+      "files_with_tests": 169,
+      "cargo_manifests": 13,
+      "examples": 32,
+      "markdown_pages": 49
+    },
+    "shared runtime (cuda-bindings, cuda-core, cuda-async, cuda-repr)": {
+      "rust_files": 87,
+      "rust_code_lines": 16376,
+      "unsafe_tokens": 566,
+      "files_with_tests": 59,
+      "cargo_manifests": 5,
+      "examples": 0,
+      "markdown_pages": 4,
+      "unsafe_per_kloc": 34.56
+    }
+  },
+  "thox_tile_ops": {
+    "experiment": "T1_thox_tile_ops",
+    "toolchain": "1.97.0",
+    "cutile": "0.4.0",
+    "check": {
+      "exit_code": 0,
+      "seconds": 0.59,
+      "errors": []
+    },
+    "clippy": {
+      "exit_code": 0,
+      "seconds": 0.65,
+      "errors": []
+    },
+    "tests": {
+      "passed": 7,
+      "failed": 0,
+      "ignored": 2,
+      "exit_code": 0,
+      "seconds": 5.14
+    },
+    "no_driver_test": {
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0,
+      "exit_code": 0
+    },
+    "bench_no_device": {
+      "exit_code": 2,
+      "result": {
+        "status": "no_device",
+        "rows": 1,
+        "hidden": 2048,
+        "block": 1024,
+        "error": "DriverError(3, \"CUDA driver library unavailable: failed to load any of [\\\"libcuda.so.1\\\", \\\"/usr/lib/wsl/lib/libcuda.so.1\\\", \\\"libcuda.so\\\", \\\"/usr/lib/wsl/lib/libcuda.so\\\", \\\"/usr/lib/x86_64-linux-gnu/libcuda.so.1\\\"]: /usr/lib/x86_64-linux-gnu/libcuda.so.1: cannot open shared object file: No such file or directory\")"
+      }
+    },
+    "kat_exit": 0,
+    "recorded_at_utc": "2026-11-03T17:03:09Z"
+  },
+  "geometry": {
+    "vecadd_n": 1024,
+    "vecadd_b": 128,
+    "vecadd_grid": 8
+  }
+}

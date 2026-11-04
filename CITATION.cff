@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use this paper, please cite it as below."
+type: article
+title: "CUDA Rust on ThoxOS: An Integration Review of NVIDIA's Two Rust GPU Kernel Tracks, with the First THOX Device Qualification on an RTX 4060 Ti, a Same-Day Comparison Against the Production CUDA C++ Kernel, and the ThoxOS GPU Layer"
+authors:
+  - family-names: Xaypanya
+    given-names: Tommy
+    orcid: "https://orcid.org/0009-0000-4425-9565"
+    affiliation: "THOX.ai LLC"
+institution:
+  name: "THOX.ai Research, THOX.ai LLC"
+version: "0.2.0"
+date-released: "2026-11-04"
+license: CC-BY-4.0
+doi: "10.5281/zenodo.23955185"
+url: "https://doi.org/10.5281/zenodo.23955185"
+abstract: >-
+  NVIDIA's CUDA Rust offers two ways to write GPU kernels in Rust:
+  cuda-oxide for SIMT and cutile-rs for Tile. We review both, map them
+  onto ThoxOS hosts, and test the Tile track twice: on a host with no
+  GPU, and on a THOX RTX 4060 Ti workstation (sm_89). Without a GPU,
+  cutile 0.4.0 builds on 3 of 3 stable Rust toolchains given CUDA 13
+  headers including cuRAND, rejects 4 of 4 aliasing misuse cases at
+  compile time, and exits with a typed driver error instead of
+  panicking when no driver is present. On the workstation, our FP32
+  Tile RMSNorm kernel matches the CPU reference on all 6 model shapes
+  we test. Against the production CUDA C++ kernel on the same host and
+  day, the result splits by shape: on the full launch path the C++
+  side is 2.96x faster at 1 x 2048 and the Tile side 1.52x faster at
+  128 x 4096. Both figures are dominated by allocation, launch and
+  copy-back, so we make no kernel-versus-kernel speed claim. A CUDA
+  13.0 toolkit builds the crate and passes host tests but cannot
+  launch a Tile kernel, because the Tile IR assembler ships only with
+  CUDA 13.2 and later. We describe the ThoxOS GPU layer that turns
+  these results into a fallback order and test it on 8 virtual hosts.
+  The Tile track is adopted for new NVIDIA kernel authoring behind
+  that fallback; the production default stays on CUDA C++, Jetson is
+  not yet run, and the SIMT track is reviewed from source only.
+keywords:
+  - CUDA Rust
+  - cutile-rs
+  - cuda-oxide
+  - GPU kernels
+  - Rust
+  - RMSNorm
+  - ThoxOS
+  - sm_89
+notes: >-
+  Preprint, not peer reviewed. THOX.ai Research technical report
+  THOX-TR-2026-11-03, v0.2.0 (public edition), 4 November 2026. The
+  Zenodo record: https://zenodo.org/records/23955185 (concept DOI
+  10.5281/zenodo.23955184).
+  PDF SHA-256:
+  9aba898eea4591792e753692bb9f7776d829e8f2d8ec25dfdd2db21f01363b8f.
