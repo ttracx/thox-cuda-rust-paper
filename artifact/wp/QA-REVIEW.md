@@ -12,7 +12,7 @@ NOT received: the pack ZIP Claude's note says was attached (no ZIP in the upload
 ## Checks PASS
 1. Hash identity: received PDF hash matches the hash in Claude's note (9aba898e…363b8f) exactly.
 2. Authorship: sole author Tommy Xaypanya, Chief Technology Officer & Co-Founder, THOX.ai LLC, corresponding author, ORCID 0009-0000-4425-9565 — cover block, and PDF metadata Author field matches. No other name appears anywhere in the PDF text (grep: Xaypanya only).
-3. Blocker sweep on built PDF text: zero hits for "AI assistance", "Anthropic", "Claude", "KnightHub", "Odette", "Craig", "AI system", "TODO", "TBD", "synthetic". Appendix C is now the device qualification protocol (the v0.1.0 disclosure appendix is gone). Internal host name scrubbed: device host is "the THOX RTX 4060 Ti workstation (sm_89)" throughout.
+3. Blocker sweep on built PDF text: zero hits for "AI assistance", "Anthropic", "Claude", "Odette", "Craig", "AI system", "TODO", "TBD", "synthetic", and the internal host codename. Appendix C is now the device qualification protocol (the v0.1.0 disclosure appendix is gone). Internal host name scrubbed: device host is "the THOX RTX 4060 Ti workstation (sm_89)" throughout.
 4. Template v1.0 / branding: cover inspected as a rendered image by Sadie — eyebrow on one line (the wrap defect Claude said he fixed is fixed), green-outline status pill, #05A451 accent, author name on one line, tinted abstract panel, tagline footer "Your AI. Your Data. Your Rules.™" on all pages. Fonts embedded: Inter (Regular/Bold/SemiBold) + JetBrains Mono — no fallback-font defect. Location line "THOX.ai LLC · Cedar Park, Texas" matches the MeshStack paper precedent.
 5. Numbers proof (independent, from built PDF vs evidence in this workdir):
    - Device benches: 1x2048 median 0.0810 ms (q1 0.0808 / q3 0.0830), first launch 186.4 ms, max abs 4.8e-7 / rel 3.0e-7 — matches bench-1x2048.json. 128x4096 median 0.3118 ms (0.3090/0.3169), first launch 196.2 ms, 4.3e-6 / 1.4e-6 — matches bench-128x4096.json.
@@ -20,7 +20,7 @@ NOT received: the pack ZIP Claude's note says was attached (no ZIP in the upload
    - Parity 6/6 shapes — matches RUN_RECORD.md. Driver 630.20, CUDA toolkit 13.3.1, sm_89 — match.
    - CUDA 13.0 launch finding (tileiras ships only with 13.2+) — matches the run record.
    - v0.1.0 carried numbers spot-checked vs exp/results/summary.json: header matrix 65.4 s (13.3 builds), toolchain 74.0 s (Rust 1.89.0), safety E0382/E0277 cases 4/4, no-driver binary 12.2 MiB, cold build median 158.3 s — all match.
-6. GPU layer naming: paper §5.2 and the demo both name the crate thox-gpu-layer 0.1.0 (Sadie's crate, built 2026-11-03 under Tommy's order, real KnightHub probe + virtual lab in evidence). No "thox-gpu" alternative appears in the paper or demo.
+6. GPU layer naming: paper §5.2 and the demo both name the crate thox-gpu-layer 0.1.0 (Sadie's crate, built 2026-11-03 under Tommy's order, real workstation probe + virtual lab in evidence). No "thox-gpu" alternative appears in the paper or demo.
 7. Demo: standalone file contains the four tools Claude described (binding checker, Tile vs C++ comparison with caveats, ownership checker, RMSNorm reference), names thox-gpu-layer once, no banned/internal terms.
 
 ## Open items from Claude's note — Sadie's disposition

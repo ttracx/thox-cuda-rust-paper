@@ -1,10 +1,10 @@
-# Device qualification run — KnightHub, 2026-11-03
+# Device qualification run — the THOX RTX 4060 Ti workstation (sm_89), 2026-11-03
 
 Executed by Sadie Weaving (CAO) under Tommy's approval of the GPU run, after the HF Jobs route hit a billing block (below). This run satisfies next step 1 of the CUDA Rust review and most of the D-CR4 gate.
 
 ## How the host was reached
 
-KnightHub's direct/tunnel SSH routes reset from the Sadie VM all day, but KnightHub WSL answers via the fleet jump route (through sadie-agent-01, 52.225.83.37). Step 0 driver gate, run for real this time:
+The run was executed on the THOX workstation's WSL2 environment. Step 0 driver gate, run for real this time:
 
 - GPU: NVIDIA GeForce RTX 4060 Ti, compute_cap 8.9, 16,380 MiB
 - Driver: 630.20 (KMD), CUDA UMD 13.4 — satisfies >= R580
@@ -30,8 +30,8 @@ KnightHub's direct/tunnel SSH routes reset from the Sadie VM all day, but Knight
 Status conferred: thox-tile-ops RMSNorm is DEVICE-QUALIFIED on sm_89 for correctness. Production binding stays on edge-ops CUDA C++ (D-CR1) until the head-to-head bench is run. Registry entry added below.
 
 Qualification registry (first entry, per GPU_LAYER_SPEC.md section 2):
-{"op":"rms_norm","kernel":"thox-tile-ops 0.1.0","track":"Tile (cutile 0.4.0)","qualified_sm":["sm_89"],"host":"KnightHub RTX 4060 Ti, driver 630.20, CUDA 13.3.1, Rust 1.99.1","bench":["bench-1x2048.json","bench-128x4096.json"],"date":"2026-11-03","decider":"Sadie Weaving, CAO","note":"Correctness qualification only; no production promotion; edge-ops head-to-head outstanding."}
+{"op":"rms_norm","kernel":"thox-tile-ops 0.1.0","track":"Tile (cutile 0.4.0)","qualified_sm":["sm_89"],"host":"THOX RTX 4060 Ti workstation (sm_89), driver 630.20, CUDA 13.3.1, Rust 1.99.1","bench":["bench-1x2048.json","bench-128x4096.json"],"date":"2026-11-03","decider":"Sadie Weaving, CAO","note":"Correctness qualification only; no production promotion; edge-ops head-to-head outstanding."}
 
 ## HF Jobs route — what happened to the approved L4 run
 
-Tommy approved the one HF Jobs L4 run at 11:31 CT. Sadie attempted the launch at ~11:37 CT and HF returned HTTP 402: "Pre-paid credit balance is insufficient - add more credits to your account to use Jobs." Verified afterwards: no job was created (newest Thox-ai job remains 06:49 UTC) and nothing was charged. The launch route itself is proven (Jobs API list/whoami succeed from this VM via the connector identity tommytracx, Thox-ai admin; image nvidia/cuda:13.3.0-devel-ubuntu24.04 verified on Docker Hub; launch payload built and accepted to the billing check). The prepared launcher (hf-job/launch_embedded.py, embedded-source variant needing no token inside the job) fires unchanged if credits are added. Org jobs ran as recently as 06:49 UTC today, so the balance was consumed between then and the attempt. Adding prepaid credits is a payment action and was not done. The KnightHub run above made the L4 result unnecessary for sm_89 qualification; an L4 run would now only add a second sm_89 data point.
+Tommy approved the one HF Jobs L4 run at 11:31 CT. Sadie attempted the launch at ~11:37 CT and HF returned HTTP 402: "Pre-paid credit balance is insufficient - add more credits to your account to use Jobs." Verified afterwards: no job was created (newest Thox-ai job remains 06:49 UTC) and nothing was charged. The launch route itself is proven (Jobs API list/whoami checks succeed for the Thox-ai organisation; image nvidia/cuda:13.3.0-devel-ubuntu24.04 verified on Docker Hub; launch payload built and accepted to the billing check). The prepared launcher (embedded-source variant needing no token inside the job) fires unchanged if credits are added. Org jobs ran as recently as 06:49 UTC today, so the balance was consumed between then and the attempt. Adding prepaid credits is a payment action and was not done. The workstation run above made the L4 result unnecessary for sm_89 qualification; an L4 run would now only add a second sm_89 data point.

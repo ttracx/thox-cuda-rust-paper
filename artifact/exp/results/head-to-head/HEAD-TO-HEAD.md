@@ -1,6 +1,6 @@
 # Head-to-head: thox-edge-ops CUDA C++ RMSNorm vs thox-tile-ops Tile RMSNorm
 
-Run: 2026-11-03, KnightHub WSL (RTX 4060 Ti, sm_89, driver 630.20, CUDA 13.3.1), the same host and day as the Tile bench it is compared against. This closes the last open item of the D-CR4 gate in ../../../../DECISIONS.md (the edge-ops comparison). Lane rule: nothing here was published; the edge-ops source repo was read, not modified.
+Run: 2026-11-03, the THOX RTX 4060 Ti workstation (sm_89) (WSL2, driver 630.20, CUDA 13.3.1), the same host and day as the Tile bench it is compared against. This closes the last open item of the adoption gate (the edge-ops comparison). The edge-ops source repo was read, not modified.
 
 ## Bottom line
 
