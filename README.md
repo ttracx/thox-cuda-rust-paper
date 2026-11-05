@@ -4,7 +4,7 @@
 [![Last commit](https://img.shields.io/github/last-commit/ttracx/thox-cuda-rust-paper)](https://github.com/ttracx/thox-cuda-rust-paper/commits/main)
 [![Latest release](https://img.shields.io/github/v/release/ttracx/thox-cuda-rust-paper)](https://github.com/ttracx/thox-cuda-rust-paper/releases)
 [![THOX.ai Research](https://img.shields.io/badge/THOX.ai-Research-05A451)](https://thox.ai/research)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23955185-1f6feb)](https://doi.org/10.5281/zenodo.23969298)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23969298-1f6feb)](https://doi.org/10.5281/zenodo.23969298)
 
 **THOX.ai Research technical report THOX-TR-2026-11-03, v0.2.0 (public edition), 4 November 2026.**
 Author: Tommy Xaypanya, Chief Technology Officer & Co-Founder, THOX.ai LLC (corresponding author), Cedar Park, Texas. ORCID: [0009-0000-4425-9565](https://orcid.org/0009-0000-4425-9565).
@@ -19,7 +19,7 @@ NVIDIA's CUDA Rust offers two ways to write GPU kernels in Rust: cuda-oxide for 
 ## DOI and canonical copies
 
 - **DOI: [10.5281/zenodo.23969298](https://doi.org/10.5281/zenodo.23969298)** (concept DOI, all versions: [10.5281/zenodo.23955184](https://doi.org/10.5281/zenodo.23955184))
-- Zenodo record: https://zenodo.org/records/23955185
+- Zenodo record: https://zenodo.org/records/23969298
 - Paper page: https://thox.ai/research/papers/cuda-rust-on-thoxos
 - Hugging Face: folder `cuda-rust/` in the [Thox-ai/thox-whitepapers](https://huggingface.co/datasets/Thox-ai/thox-whitepapers) dataset
 - This repository: paper PDF + interactive demo in `paper/`, evidence results in `artifact/exp/results/`
