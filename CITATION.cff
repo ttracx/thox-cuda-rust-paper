@@ -12,8 +12,8 @@ institution:
 version: "0.2.0"
 date-released: "2026-11-04"
 license: CC-BY-4.0
-doi: "10.5281/zenodo.23955185"
-url: "https://doi.org/10.5281/zenodo.23955185"
+doi: "10.5281/zenodo.23969298"
+url: "https://doi.org/10.5281/zenodo.23969298"
 abstract: >-
   NVIDIA's CUDA Rust offers two ways to write GPU kernels in Rust:
   cuda-oxide for SIMT and cutile-rs for Tile. We review both, map them
