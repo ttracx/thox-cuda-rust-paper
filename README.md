@@ -102,3 +102,17 @@ This work is licensed under the Creative Commons Attribution 4.0 International L
   url         = {https://doi.org/10.5281/zenodo.23969298}
 }
 ```
+
+---
+
+## Legal
+
+Copyright (c) 2024-2026 THOX.ai LLC. All rights reserved.
+
+**THOX.ai LLC**
+- CTO: Tommy Xaypanya
+- CEO: Craig Ross
+
+See [LICENSE](LICENSE) for license terms.
+
+Unauthorized copying, modification, merger, publication, distribution, sublicensing, and/or selling of this software, via any medium, is strictly prohibited without prior written consent from THOX.ai LLC.
